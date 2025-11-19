@@ -24,10 +24,9 @@ def delete(task_id):
     return redirect(url_for("home"))
 @app.route("/done/<int:task_id>")
 def done(task_id):
-    # Trouver la tâche
     for task in tasks:
         if task["id"] == task_id:
-            task["done"] = True  # Marquer comme terminée
+            task["done"] = True  
             break
 
     return redirect(url_for("home"))
