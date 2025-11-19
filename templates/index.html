@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>liste des taches </h1>
+<input type="text" id="search" placeholder="Rechercher une tâche…">
+
+<form action="{{ url_for('add') }}" method="POST" id="addForm">
+    <input type="text" name="title" id="titleField" placeholder="nouvelle tache">
+    <button type="submit">ajouter</button>
+</form>
+{% if tasks|length == 0 %}
+<p>Aucune tache pour le moment</p>
+{% else %}
+<ul>
+    {% for task in tasks %}
+    <li>
+        {{ task.title }} - 
+        {% if task.done %}
+            terminee
+        {% else %}
+            a faire
+            <a href="{{ url_for('done', task_id=task.id) }}"> terminer</a>
+        {% endif %}
+
+        <a href="{{ url_for('delete', task_id=task.id) }}" class="delete-btn"> supprimer</a>
+
+    </li>
+    {% endfor %}
+</ul>
+
+{% endif %}
+{% endblock %}
